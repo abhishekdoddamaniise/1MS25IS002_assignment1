@@ -27,7 +27,7 @@ export default function App(){
   setBusy(true);
   try{
    const ai=new GoogleGenAI({apiKey:key});
-   const response=await ai.models.generateContent({model:'gemini-2.5-flash',contents:`${PROMPT}\n\nAcademic level: ${level}\nResearch topic: ${topic}\nScope or instructions: ${scope||'Choose a focused, feasible scope.'}`,config:{responseMimeType:'application/json',temperature:0.3}});
+   const response=await ai.models.generateContent({model:'gemini-3.8-flash',contents:`${PROMPT}\n\nAcademic level: ${level}\nResearch topic: ${topic}\nScope or instructions: ${scope||'Choose a focused, feasible scope.'}`,config:{responseMimeType:'application/json',temperature:0.3}});
    const raw=response.text||'';
    const parsed=JSON.parse(raw.replace(/^```json\s*/i,'').replace(/\s*```$/,''));
    const normalized:Paper={title:String(parsed.title||topic),abstract:String(parsed.abstract||''),research_questions:Array.isArray(parsed.research_questions)?parsed.research_questions:[],literature_review:String(parsed.literature_review||''),methodology:String(parsed.methodology||''),findings:Array.isArray(parsed.findings)?parsed.findings:[],limitations:Array.isArray(parsed.limitations)?parsed.limitations:[],conclusion:String(parsed.conclusion||''),references:Array.isArray(parsed.references)?parsed.references:[]};
@@ -44,7 +44,7 @@ export default function App(){
    <div className="workspace">
     <section className="panel input-panel"><div className="panel-heading"><div><span className="step">01 / INPUT</span><h2>Define your research</h2></div><span className="panel-icon"><Search size={18}/></span></div>
      <label htmlFor="topic">RESEARCH TOPIC</label><textarea id="topic" className="topic-input" value={topic} onChange={e=>setTopic(e.target.value)} placeholder="e.g. The impact of AI on employment..." rows={4}/>
-     <div className="field-row"><div className="field"><label htmlFor="level">ACADEMIC LEVEL</label><select id="level" value={level} onChange={e=>setLevel(e.target.value)}><option>High School</option><option>Undergraduate</option><option>Postgraduate</option><option>Doctoral</option></select></div><div className="field"><label>MODEL</label><div className="model-select"><Sparkles size={15}/> Gemini 2.5 Flash</div></div></div>
+     <div className="field-row"><div className="field"><label htmlFor="level">ACADEMIC LEVEL</label><select id="level" value={level} onChange={e=>setLevel(e.target.value)}><option>High School</option><option>Undergraduate</option><option>Postgraduate</option><option>Doctoral</option></select></div><div className="field"><label>MODEL</label><div className="model-select"><Sparkles size={15}/> Gemini 3.8 Flash</div></div></div>
      <label htmlFor="scope">ADDITIONAL SCOPE <span className="optional">OPTIONAL</span></label><textarea id="scope" className="scope-input" value={scope} onChange={e=>setScope(e.target.value)} placeholder="Geography, timeframe, specific angle or constraints..." rows={3}/>
      <button className="generate-btn" onClick={generate} disabled={busy}>{busy?<><LoaderCircle className="spin" size={18}/> Generating your paper...</>:<><Sparkles size={17}/> Generate research paper <span>→</span></>}</button>
      <p className="privacy-note">Your API key stays in your local environment. Generated work should be checked against primary sources.</p>
