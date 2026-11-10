@@ -1,0 +1,24 @@
+{
+  "title": "The Impact of Artificial Intelligence on Employment and the Future of Work",
+  "abstract": "This illustrative sample outlines how artificial intelligence may reshape tasks, occupations and labour-market transitions. It frames the topic as a research problem rather than presenting unverified empirical findings.",
+  "research_questions": [
+    "Which categories of work tasks are most exposed to current AI systems?",
+    "How does AI adoption affect demand for complementary skills across occupations?",
+    "What organisational and policy factors influence whether AI augments or displaces workers?"
+  ],
+  "literature_review": "A responsible review should examine task-based models of technological change, automation and skill-biased technical change, and empirical studies of generative AI in workplaces. The review should distinguish theoretical predictions from measured effects and compare evidence across sectors, occupations and countries. This sample does not claim to be a completed literature review.",
+  "methodology": "A mixed-methods design could combine a structured review of peer-reviewed research with analysis of publicly available labour-market and occupational task data. A comparative case-study component could examine organisations adopting AI tools. Key variables may include task exposure, adoption intensity, employment, wages, productivity and training. Any causal analysis should address confounding factors and selection effects.",
+  "findings": [
+    "Hypothesis to investigate: AI may automate some tasks while increasing the value of complementary human skills.",
+    "Hypothesis to investigate: employment effects are likely to vary by occupation, industry, adoption rate and institutional context.",
+    "Evidence required: longitudinal data is needed to distinguish short-term task changes from longer-term employment outcomes."
+  ],
+  "limitations": [
+    "This is an illustrative draft, not a completed empirical study.",
+    "AI capabilities and workplace adoption change rapidly, so findings may become outdated.",
+    "Occupational averages can hide substantial differences between individual tasks and workers.",
+    "Publicly available data may not measure informal work, job quality or within-firm task redesign."
+  ],
+  "conclusion": "The relationship between AI and employment should be studied at the task level and across different institutional settings. A balanced analysis must consider both displacement and augmentation, and should avoid treating technical exposure as equivalent to job loss.",
+  "references": []
+}
