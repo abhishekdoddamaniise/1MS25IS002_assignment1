@@ -26,8 +26,8 @@ export default function App(){
   if(topic.trim().length<8){setError('Please enter a more specific research topic.');return;}
   setBusy(true);
   try{
-   const ai=new GoogleGenAI({apiKey:key});
-   const response=await ai.models.generateContent({model:'gemini-3.8-flash',contents:`${PROMPT}\n\nAcademic level: ${level}\nResearch topic: ${topic}\nScope or instructions: ${scope||'Choose a focused, feasible scope.'}`,config:{responseMimeType:'application/json',temperature:0.3}});
+   const ai=new GoogleGenAI({apiKey:key,httpOptions:{timeout:90000}});
+   const response=await ai.models.generateContent({model:'gemini-3.8-flash',contents:`${PROMPT}\n\nAcademic level: ${level}\nResearch topic: ${topic}\nScope or instructions: ${scope||'Choose a focused, feasible scope.'}`,config:{responseMimeType:'application/json',temperature:0.3,maxOutputTokens:4096}});
    const raw=response.text||'';
    const parsed=JSON.parse(raw.replace(/^```json\s*/i,'').replace(/\s*```$/,''));
    const normalized:Paper={title:String(parsed.title||topic),abstract:String(parsed.abstract||''),research_questions:Array.isArray(parsed.research_questions)?parsed.research_questions:[],literature_review:String(parsed.literature_review||''),methodology:String(parsed.methodology||''),findings:Array.isArray(parsed.findings)?parsed.findings:[],limitations:Array.isArray(parsed.limitations)?parsed.limitations:[],conclusion:String(parsed.conclusion||''),references:Array.isArray(parsed.references)?parsed.references:[]};
