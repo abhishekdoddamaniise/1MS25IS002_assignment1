@@ -1,0 +1,11 @@
+{
+  "title":"string",
+  "abstract":"string",
+  "research_questions":["string"],
+  "literature_review":"string",
+  "methodology":"string",
+  "findings":["string"],
+  "limitations":["string"],
+  "conclusion":"string",
+  "references":[{"citation":"string","url":"string","verification_status":"string"}]
+}
