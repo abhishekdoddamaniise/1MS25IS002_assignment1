@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { GoogleGenAI } from '@google/genai';
 import { BookOpen, Sparkles, Download, FileJson, FileText, LoaderCircle, GraduationCap, Search, AlertCircle, CheckCircle2 } from 'lucide-react';
 
@@ -14,7 +14,6 @@ Never fabricate experiments, results, authors, titles, journals, DOIs, statistic
 Return ONLY valid JSON with exactly these keys:
 title (string), abstract (string), research_questions (array of strings), literature_review (string), methodology (string), findings (array of strings), limitations (array of strings), conclusion (string), references (array of objects with citation, url, verification_status strings).
 Few-shot example: For "How can urban green spaces affect public health?", define population and outcomes, discuss plausible pathways like heat reduction and physical activity, identify confounders such as income/access, propose an observational or quasi-experimental design, and do not claim causation from correlation.`;
-const emptyPaper:Paper={title:'',abstract:'',research_questions:[],literature_review:'',methodology:'',findings:[],limitations:[],conclusion:'',references:[]};
 function download(name:string,content:string,type:string){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
 export default function App(){
  const [topic,setTopic]=useState('The impact of artificial intelligence on employment and the future of work');
@@ -61,4 +60,4 @@ export default function App(){
   </main>
  </div>;
 }
-function Section({title,children}:{title:string;children:React.ReactNode}){return <section className="paper-section"><h3>{title}</h3>{children}</section>}
+function Section({title,children}:{title:string;children:ReactNode}){return <section className="paper-section"><h3>{title}</h3>{children}</section>}
