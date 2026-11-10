@@ -27,7 +27,20 @@ export default function App(){
   setBusy(true);
   try{
    const ai=new GoogleGenAI({apiKey:key,httpOptions:{timeout:90000}});
-   const response=await ai.models.generateContent({model:'gemini-3.8-flash',contents:`${PROMPT}\n\nAcademic level: ${level}\nResearch topic: ${topic}\nScope or instructions: ${scope||'Choose a focused, feasible scope.'}`,config:{responseMimeType:'application/json',temperature:0.3,maxOutputTokens:4096}});
+   const request = {model:'gemini-3.8-flash',contents:`${PROMPT}\n\nAcademic level: ${level}\nResearch topic: ${topic}\nScope or instructions: ${scope||'Choose a focused, feasible scope.'}`,config:{responseMimeType:'application/json',temperature:0.3,maxOutputTokens:4096}};
+   let response;
+   for(let attempt=0;attempt<3;attempt++){
+    try{
+     response=await ai.models.generateContent(request);
+     break;
+    }catch(err){
+     const message=err instanceof Error?err.message:String(err);
+     const retryable=/503|UNAVAILABLE|high demand|429|RESOURCE_EXHAUSTED/i.test(message);
+     if(!retryable||attempt===2) throw err;
+     await new Promise(resolve=>setTimeout(resolve,2000*(attempt+1)));
+    }
+   }
+   if(!response) throw new Error('Gemini is temporarily busy. Please wait a minute and try again.');
    const raw=response.text||'';
    const parsed=JSON.parse(raw.replace(/^```json\s*/i,'').replace(/\s*```$/,''));
    const normalized:Paper={title:String(parsed.title||topic),abstract:String(parsed.abstract||''),research_questions:Array.isArray(parsed.research_questions)?parsed.research_questions:[],literature_review:String(parsed.literature_review||''),methodology:String(parsed.methodology||''),findings:Array.isArray(parsed.findings)?parsed.findings:[],limitations:Array.isArray(parsed.limitations)?parsed.limitations:[],conclusion:String(parsed.conclusion||''),references:Array.isArray(parsed.references)?parsed.references:[]};
